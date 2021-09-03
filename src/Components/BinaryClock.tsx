@@ -17,29 +17,19 @@ const Wrapper = styled.div`
   place-items: center;
 `;
 
-const Hour = () => {
-  return (
-    <UnitContainer>
-      <Circles num={2}></Circles>
-      <Circles num={4}></Circles>
-    </UnitContainer>
-  );
-};
+interface ITimeUnit {
+  binary: {
+    first: string;
+    second: string;
+  };
+  dimension: number[];
+}
 
-const Minutes = () => {
+const TimeUnit = ({ binary, dimension }: ITimeUnit) => {
   return (
     <UnitContainer>
-      <Circles num={4}></Circles>
-      <Circles num={4}></Circles>
-    </UnitContainer>
-  );
-};
-
-const Seconds = () => {
-  return (
-    <UnitContainer>
-      <Circles num={4}></Circles>
-      <Circles num={4}></Circles>
+      <Circles num={dimension[0]}></Circles>
+      <Circles num={dimension[1]}></Circles>
     </UnitContainer>
   );
 };
@@ -47,12 +37,23 @@ const Seconds = () => {
 const BinaryClock: FC = () => {
   const [date, setDate] = useState<Date>(new Date());
 
-  const hour = date.getHours();
-  const minutes = date.getMinutes();
-  const seconds = date.getSeconds();
-
   const dec2bin = (dec: string) => {
     return (Number(dec) >>> 0).toString(2);
+  };
+
+  const hour = {
+    first: dec2bin(date.getHours().toString().split("")[0]),
+    second: dec2bin(date.getHours().toString().split("")[1]),
+  };
+
+  const minutes = {
+    first: dec2bin(date.getMinutes().toString().split("")[0]),
+    second: dec2bin(date.getMinutes().toString().split("")[1]),
+  };
+
+  const seconds = {
+    first: dec2bin(date.getSeconds().toString().split("")[0]),
+    second: dec2bin(date.getSeconds().toString().split("")[1]),
   };
 
   setInterval(() => setDate(new Date()), 1000);
@@ -62,11 +63,11 @@ const BinaryClock: FC = () => {
   return (
     <Wrapper>
       {/* Hour */}
-      <Hour />
+      <TimeUnit binary={hour} dimension={[2, 4]} />
       {/* Minutes */}
-      <Minutes />
+      <TimeUnit binary={minutes} dimension={[4, 4]} />
       {/* Seconds */}
-      <Seconds />
+      <TimeUnit binary={seconds} dimension={[4, 4]} />
     </Wrapper>
   );
 };
