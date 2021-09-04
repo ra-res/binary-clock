@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 interface CircleProps {
@@ -20,13 +20,20 @@ const Container = styled.div`
 
 interface CirclesProps {
   num: number;
+  binary: string;
 }
 
-const Circles = ({ num }: CirclesProps) => {
+const Circles = ({ num, binary }: CirclesProps) => {
   const circles = [];
+  let bin = binary.split("");
+
+  // Pad Array with 0s
+  if (bin.length !== num) {
+    bin = Array(num).fill("0").concat(bin).slice(bin.length);
+  }
 
   for (let index = 0; index < num; index++) {
-    circles.push(<Circle active={false} />);
+    circles.push(<Circle active={bin[index] === "1"} />);
   }
 
   return <Container>{circles}</Container>;

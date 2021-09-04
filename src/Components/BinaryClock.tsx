@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import Circles from "./Circle";
@@ -17,19 +17,21 @@ const Wrapper = styled.div`
   place-items: center;
 `;
 
+interface IBinaryTime {
+  first: string;
+  second: string;
+}
+
 interface ITimeUnit {
-  binary: {
-    first: string;
-    second: string;
-  };
+  binary: IBinaryTime;
   dimension: number[];
 }
 
 const TimeUnit = ({ binary, dimension }: ITimeUnit) => {
   return (
     <UnitContainer>
-      <Circles num={dimension[0]}></Circles>
-      <Circles num={dimension[1]}></Circles>
+      <Circles binary={binary.first} num={dimension[0]}></Circles>
+      <Circles binary={binary.second} num={dimension[1]}></Circles>
     </UnitContainer>
   );
 };
@@ -56,18 +58,18 @@ const BinaryClock: FC = () => {
     second: dec2bin(date.getSeconds().toString().split("")[1]),
   };
 
-  setInterval(() => setDate(new Date()), 1000);
-
-  //   dec2bin(hour.toString().split("")[1]);
+  setInterval(() => {
+    setDate(new Date());
+  }, 2000);
 
   return (
     <Wrapper>
       {/* Hour */}
-      <TimeUnit binary={hour} dimension={[2, 4]} />
+      <TimeUnit binary={hour!} dimension={[2, 4]} />
       {/* Minutes */}
-      <TimeUnit binary={minutes} dimension={[4, 4]} />
+      <TimeUnit binary={minutes!} dimension={[4, 4]} />
       {/* Seconds */}
-      <TimeUnit binary={seconds} dimension={[4, 4]} />
+      <TimeUnit binary={seconds!} dimension={[4, 4]} />
     </Wrapper>
   );
 };
