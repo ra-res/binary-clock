@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 interface CircleProps {
   active: boolean;
+  opacity: number;
 }
 
 const Circle = styled.div<CircleProps>`
@@ -10,6 +11,7 @@ const Circle = styled.div<CircleProps>`
   width: 50px;
   margin: 15px;
   border-radius: 25px;
+  opacity: ${(prop) => prop.opacity};
   background: ${(prop) => (prop.active ? "green " : "gray")};
 `;
 
@@ -29,11 +31,16 @@ const Circles = ({ num, binary }: CirclesProps) => {
 
   // Pad Array with 0s
   if (bin.length !== num) {
-    bin = Array(num).fill("0").concat(bin).slice(bin.length);
+    bin = Array(4).fill("0").concat(bin).slice(bin.length);
   }
 
-  for (let index = 0; index < num; index++) {
-    circles.push(<Circle active={bin[index] === "1"} />);
+  for (let index = 0; index < 4; index++) {
+    circles.push(
+      <Circle
+        active={bin[index] === "1"}
+        opacity={num !== 4 && index < num ? 0 : 1}
+      />
+    );
   }
 
   return <Container>{circles}</Container>;
