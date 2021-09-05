@@ -5,7 +5,7 @@
 # Demo
 
 ```
-https://ra-res.github.io/binary-clock
+[https://ra-res.github.io/binary-clock](https://ra-res.github.io/binary-clock)
 ```
 
 ## Available Scripts
