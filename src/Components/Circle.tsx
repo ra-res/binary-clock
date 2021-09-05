@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 interface CircleProps {
@@ -13,6 +13,13 @@ const Circle = styled.div<CircleProps>`
   border-radius: 25px;
   opacity: ${(prop) => prop.opacity};
   background: ${(prop) => (prop.active ? "green " : "gray")};
+
+  @media (max-width: 768px) {
+    height: 25px;
+    width: 25px;
+    margin: 5px;
+    border-radius: 12.5px;
+  }
 `;
 
 const Container = styled.div`
