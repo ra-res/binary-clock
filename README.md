@@ -2,6 +2,12 @@
 
 ![Binary Clock Image](./binary-clock.png)
 
+# Demo
+
+```
+https://ra-res.github.io/binary-clock
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
