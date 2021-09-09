@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import styled from "styled-components";
 
 import Circles from "./Circle";
@@ -60,7 +60,7 @@ const BinaryClock: FC = () => {
 
   setInterval(() => {
     setDate(new Date());
-  }, 2000);
+  }, 1000);
 
   return (
     <Wrapper>

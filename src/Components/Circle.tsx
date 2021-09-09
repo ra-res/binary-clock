@@ -37,13 +37,14 @@ const Circles = ({ num, binary }: CirclesProps) => {
   let bin = binary.split("");
 
   // Pad Array with 0s
-  if (bin.length !== num) {
-    bin = Array(4).fill("0").concat(bin).slice(bin.length);
+  if (bin.length !== 4) {
+    bin = [...Array(4 - bin.length).fill("0"), ...bin];
   }
 
   for (let index = 0; index < 4; index++) {
     circles.push(
       <Circle
+        key={`${bin} + ${index}`}
         active={bin[index] === "1"}
         opacity={num !== 4 && index < num ? 0 : 1}
       />
